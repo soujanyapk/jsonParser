@@ -18,27 +18,43 @@ public class App {
 
         try {
             BufferedReader fileReader = new BufferedReader(
-                    new FileReader("D:\\userdata\\pabiswas\\jsonParser\\src\\main\\java\\com\\nsn\\jsonparser\\user.json"));
+                    new FileReader("D:\\userdata\\pabiswas\\jsonParser\\src\\main\\resources\\TPDInst.json"));
             JsonNode rootNode = mapper.readTree(fileReader);
-            JsonNode nameNode = rootNode.path("name");
-            System.out.println(nameNode.getTextValue());
+            JsonNode duModeNode = rootNode.path("DuMode");
+            System.out.println("DUMODE : " + duModeNode.getTextValue());
 
-            JsonNode ageNode = rootNode.path("age");
-            System.out.println(ageNode.getIntValue());
+            JsonNode ageNode = rootNode.path("Schema");
+            System.out.println("SCHEMA : " + ageNode.getTextValue());
+            System.out.println("");
+            
+            JsonNode ScalarsNode = rootNode.path("Scalars");
+            JsonNode duParamNode = ScalarsNode.path("DuParam");
+            Iterator<JsonNode> it = duParamNode.getElements();
+            
+            while(it.hasNext())
+            {
+                JsonNode temp = it.next();
+                
+                JsonNode paramNode = temp.path("Param");
+                JsonNode valueNode = paramNode.path("Value");
+                System.out.println("Value : " + valueNode.getTextValue());
+                
+                JsonNode nameNode = paramNode.path("Name");
+                System.out.println("Name : " + nameNode.getTextValue());
 
-            JsonNode msgNode = rootNode.path("messages");
-            Iterator<JsonNode> ite = msgNode.getElements();
+                JsonNode keyNode = temp.path("Key");
+                System.out.println("Key : " + keyNode.getTextValue());
 
-            while (ite.hasNext()) {
-                JsonNode temp = ite.next();
-                System.out.println(temp.getTextValue());
+                System.out.println("");
             }
-
+            
+            /*
             ((ObjectNode) rootNode).put("nickname", "new nickname");
             ((ObjectNode) rootNode).put("name", "updated name");
             ((ObjectNode) rootNode).remove("age");
             
             mapper.writeValue(new File("d:\\user.json"), rootNode);
+            */
         } catch (JsonGenerationException e) {
             e.printStackTrace();
         } catch (JsonMappingException e) {
