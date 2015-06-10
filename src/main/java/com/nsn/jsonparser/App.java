@@ -18,7 +18,7 @@ public class App {
 
         try {
             BufferedReader fileReader = new BufferedReader(
-                    new FileReader("D:\\userdata\\pabiswas\\jsonParser\\src\\main\\resources\\TPDInst.json"));
+                    new FileReader("src\\main\\resources\\TPDInst.json"));
             JsonNode rootNode = mapper.readTree(fileReader);
             JsonNode duModeNode = rootNode.path("DuMode");
             System.out.println("DUMODE : " + duModeNode.getTextValue());
