@@ -14,6 +14,9 @@ import org.codehaus.jackson.node.ObjectNode;
 public class App {
 
     public static void main(String[] args) {
+        xmlParser afwXmlParser = new xmlParser();
+        afwXmlParser.parse();
+        
         ObjectMapper mapper = new ObjectMapper();
 
         try {
