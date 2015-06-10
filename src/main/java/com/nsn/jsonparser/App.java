@@ -28,33 +28,33 @@ public class App {
             System.out.println("");
             
             JsonNode ScalarsNode = rootNode.path("Scalars");
-            JsonNode duParamNode = ScalarsNode.path("DuParam");
-            Iterator<JsonNode> it = duParamNode.getElements();
+            JsonNode rootDuParamNode = ScalarsNode.path("DuParam");
+            Iterator<JsonNode> it = rootDuParamNode.getElements();
             
             while(it.hasNext())
             {
-                JsonNode temp = it.next();
+                JsonNode duParamNode = it.next();
                 
-                JsonNode paramNode = temp.path("Param");
+                JsonNode paramNode = duParamNode.path("Param");
+                
                 JsonNode valueNode = paramNode.path("Value");
                 System.out.println("Value : " + valueNode.getTextValue());
-                
+                if(valueNode.getTextValue().equals("DN1"))
+                {
+                    ((ObjectNode)paramNode).put("Value", "Updated DN");
+                }
                 JsonNode nameNode = paramNode.path("Name");
                 System.out.println("Name : " + nameNode.getTextValue());
-
-                JsonNode keyNode = temp.path("Key");
+                
+                JsonNode keyNode = duParamNode.path("Key");
                 System.out.println("Key : " + keyNode.getTextValue());
-
+                
                 System.out.println("");
             }
             
-            /*
-            ((ObjectNode) rootNode).put("nickname", "new nickname");
-            ((ObjectNode) rootNode).put("name", "updated name");
-            ((ObjectNode) rootNode).remove("age");
+            ((ObjectNode) rootNode).put("Schema", "HLR Schema");
             
             mapper.writeValue(new File("d:\\user.json"), rootNode);
-            */
         } catch (JsonGenerationException e) {
             e.printStackTrace();
         } catch (JsonMappingException e) {
